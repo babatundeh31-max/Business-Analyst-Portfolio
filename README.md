@@ -310,6 +310,9 @@ By serving as the analytical engine for this initiative, I systematically transl
 
 
 
+
+
+
 **PROJECT 2**   **MONIESPRINT**
 
 # Case Study: Automated Credit Decisioning & Disbursal Engine for Micro-Lending 
@@ -368,3 +371,61 @@ The implementation of the Moniesprint Automated Credit Decisioning and Disbursal
 *   **Mitigated Credit Default Risk:** Enforcing the hard programmatic gate (`Score >= 600?`) via the Credit Bureau API integration is projected to **decrease Non-Performing Loans (NPLs) by an estimated 25%**, ensuring a much healthier credit book.
 *   **Eliminated Operational Fraud:** Integrating instantaneous **BVN and Identity Verification** directly at the ingestion gateway successfully eliminated application identity fraud bottlenecks prior to data processing.
 *   **Enhanced User Retargeting:** Instead of a dead-end rejection, the automated SMS CRM integration for low-score applicants converted a standard drop-off point into a financial health touchpoint, preserving long-term customer goodwill.
+
+
+
+**PROJECT 3** 
+
+
+# Case Study: Process Optimization for a Digital Joint Liability Group (JLG) Micro-Lending Engine 
+
+##  Project Overview
+This project details the process optimization and system architecture requirements for transitioning a manual, field-based Microfinance Bank (MFB) credit system into an automated **Joint Liability Group (JLG)** digital lending platform. 
+
+Utilizing cross-functional swimlanes, I mapped a 14-node interaction workflow that spans the client interface, frontend validation screens, core banking transaction engines, and backend credit database records to enforce automated risk management gates.
+
+---
+
+##  The Framework 
+
+### 1. Situation (The Business Challenge)
+Traditional cooperative or group-guaranteed microfinance structures require field officers to manually reconcile paper logbooks, verify member balances, and obtain physical signatures. This introduces high operational costs, manual errors, and critical security gaps. Furthermore, manual systems cannot reliably enforce real-time risk constraints, such as verifying that all group members hold a minimum savings deposit balance before capital is disbursed.
+
+### 2. Task (My Role as Business Analyst)
+As the Lead Business Analyst, my objective was to engineer an event-driven system pipeline that:
+*   Decouples processing activities across human, client application, and core banking system execution spaces.
+*   Hardcodes automated risk check validation constraints directly into the application funnel.
+*   Ensures strict legal and regulatory compliance by tracking multi-party digital signature agreements.
+
+*   ### 3. Action (What I Delivered)
+I designed a cross-functional workflow diagram mapped out across four key system architectural lanes:
+
+*   **User Lane (Human Interface Layer):** Models front-end customer actions starting with group invitation creation and concluding with concurrent, digital contract cross-signing actions.
+*   **Mobile App Lane (Frontend Application Layer):** Executes client-side validation logic. It initiates profile ingestion, monitors the eligibility query status, manages conditional redirect routing, and renders digital contract agreements.
+*   **Core Banking Lane (Transaction Engine Layer):** Governs back-end accounting execution. Once the risk profile receives successful markers, this lane processes the underwriting workflow scripts and triggers secure API endpoints to disburse loan proceeds into group mobile wallets.
+*   **Database Ledger (Data State Layer):** Monitors compliance and asset states. It evaluates account variables against custom requirements (e.g., verifying a minimum **20% locked savings balance limit** over 30 days) and registers legal signature payloads to prevent auditing vulnerabilities.
+
+### 4. Result (Business Impact & Value)
+*   **Zero Human-Induced Delays:** Migrated manual underwriting, identity tracking, and document verification tasks into systematic, API-driven workflows.
+*   **Programmatic Credit Risk Shield:** Hardcoding the **20% locked balance condition check** before loan allocation protects corporate capital, driving down overall Portfolio At Risk (PAR > 30) rates.
+*   **Uncompromised Compliance Verification:** Eliminating physical signature paperwork ensures a clean, cryptographically secure digital audit log for regulatory compliance reporting.
+
+---
+
+##  System Process Blueprint
+
+Below is the cross-functional workflow designed to eliminate operational silos across the micro-lending pipeline:
+
+### Process Swimlane Engine for MFB Group Lending
+![Digital JLG Underwriting Workflow](assets/digital-jlg-swimlane.png)
+## 📋 High-Level Requirements Catalog Derived from this Mapping
+
+To demonstrate how this visual flow translates into technical product deliverables for engineering teams:
+
+### Functional Specifications:
+*   **REQ-001 (Savings Check):** The system must block group progress if any individual member profile fails to return a positive record for the 20% locked-deposit baseline configuration check.
+*   **REQ-002 (Signature Collection):** The platform must enforce a 72-hour timeout rule for cross-signing actions; if any group member fails to sign via mobile authenticators within this time window, the system must trigger a hard cancellation loop.
+
+### Non-Functional Specifications:
+*   **Security:** All identity files, transaction requests, and digital signature vectors must be securely encrypted in-transit utilizing TLS 1.3 architecture.
+*   **Availability:** The backend API pipeline linking the Core Banking Lane to the Database Ledger must achieve an uptime threshold of 99.99% during peak operations.
