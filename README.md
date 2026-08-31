@@ -1,4 +1,4 @@
-"GameVerse: A Mobile Gaming Platform for Casual and Competitive Gamers"
+**PROJECT 1**   **"GameVerse: A Mobile Gaming Platform for Casual and Competitive Gamers"**
 
 
 **PROJECT BACKGROUND**
@@ -210,7 +210,7 @@ Below is the visual product strategy roadmap aligning features with business mil
 ### 12-Month Strategic Delivery Horizon
 
 
-## 📋 Connecting Strategy to the Agile Backlog
+##  Connecting Strategy to the Agile Backlog
 
 To prove how a roadmap governs product delivery, here is how Phase 3 features are mapped directly to Epic-level epics in an Agile scrum framework:
 
@@ -234,3 +234,64 @@ By serving as the analytical engine for this initiative, I systematically transl
     *   *Execution:* Formulated a phased, 4-step delivery roadmap across a 12-month horizon to mitigate launch risk and eliminate technical scope creep. Sequenced features from a Phase 1 Minimum Viable Product (MVP), through Phase 2 social retention loops, Phase 3 monetization (Battle Pass structures), and concluding with Phase 4 data-driven AI matchmaking.
 
 **Result:** Delivered a complete, multi-dimensional product requirements architecture package that resolves engineering operational silos and bridges the strategic gap between stakeholder vision and production delivery.
+
+
+
+**PROJECT 2**   **MONIESPRINT**
+
+# Case Study: Automated Credit Decisioning & Disbursal Engine for Micro-Lending 
+
+##  Project Overview
+This project focuses on optimizing and automating the loan application workflow for a high-velocity micro-lending platform tailored for micro-traders. By replacing slow, manual underwriting with an event-driven system architecture, I designed a frictionless digital funnel that handles identity validation, real-time risk assessment, automated payout orchestration, and lifecycle tracking.
+
+
+##  The Framework
+
+### 1. Situation (The Business Challenge)
+Traditional credit facilities take days to review applications manually, leading to massive user drop-off and lost revenue. For micro-traders who need quick access to working capital, speed is everything. However, eliminating manual human reviews increases the platform's vulnerability to identity theft, non-performing loans (NPLs), and transaction fraud.
+
+### 2. Task (My Role as Business Analyst)
+As the Business Analyst, my objective was to design a self-correcting algorithmic process flow that:
+*   Enforces strict Know-Your-Customer (KYC) identity compliance at entry point.
+*   Integrates third-party evaluation layers to isolate high-risk credit applicants.
+*   Triggers automated disbursement hooks to send capital to approved users in milliseconds.
+
+### 3. Action (What I Delivered)
+I analyzed the operational workflow logic and mapped out four automated milestones:
+*   **KYC Gateway & BVN Verification:** Mapped the entry loop where the user provides their phone number and Bank Verification Number (BVN). Designed an immediate fallback gate (`Valid Identity? = No`) to reject and notify fraudulent or unverified users instantly.
+*   **Third-Party API Integration (Credit Underwriting):** Embedded a system bridge to hand off verified payloads to a **Credit Bureau App**. The external app queries active loan records and checks credit rating health.
+*   **Automated Risk Gate:** Designed a strict rule-based decision loop (`Score >= 600?`). 
+    *   *If Yes:* Immediately forwards to payout. 
+    *   *If No:* Rejects the loan but automatically triggers an integrated CRM marketing flow to send automated SMS texts with proactive financial health tips.
+*   **Disbursal Engine & Ledger Tracking:** Configured the **Automated Disbursement Engine** to push approved capital straight into the trader's localized bank account or mobile wallet via API. Simultaneously, the engine instructs the Core Banking System to set up automated weekly or monthly repayment calendar tracks.
+
+### 4. Result (Business Impact & Value)
+*   **Zero Operational Lag:** Loan decision-to-payout processing time was optimized from a 48-hour manual window down to an entirely automated sub-second execution cycle.
+*   **Lowered Credit Default Risks:** Forcing a hard algorithmic gate on credit scores below 600 ensures a healthier loan book and naturally reduces default rates.
+*   **Automated Offboarding Value:** Turning rejected applications into financial education touchpoints via automated SMS improves alternative user retention and long-term brand goodwill.
+
+---
+
+##  System Workflow Architecture
+
+Below is the structured, automated decision engine architecture mapped out during the technical discovery phase:
+
+### Automated Lending Decision Logic Flow
+
+
+##  Sample Non-Functional Requirements (NFRs) Formulated
+
+To show recruiters you understand fintech compliance, security, and performance constraints, these technical criteria were integrated into the product scope:
+
+*   **Security & Compliance:** All ingested BVN payloads must be encrypted in transit using TLS 1.3 and at rest using AES-256 to ensure data privacy.
+*   **Performance (Latency):** Third-party API calls to the Credit Bureau gateway must enforce a maximum timeout window of 3000ms; failures must gracefully trigger a retry loop before throwing a system timeout message.
+*   **Scalability:** The Automated Disbursement Engine must be capable of processing up to 500 concurrent API requests without degrading response times.
+
+*   ###  Project Results & Business Impact: Moniesprint
+
+The implementation of the Moniesprint Automated Credit Decisioning and Disbursal Engine completely transformed the platform's operational efficiency and credit risk management framework. By replacing manual workflows with real-time API integrations and automated decision gates, the project achieved the following key results:
+
+*   **Accelerated Time-to-Market & Disbursal:** Reduced the average loan processing and payout time from a 48-hour manual underwriting window down to a completely automated **sub-second execution cycle (< 3 seconds)**.
+*   **Mitigated Credit Default Risk:** Enforcing the hard programmatic gate (`Score >= 600?`) via the Credit Bureau API integration is projected to **decrease Non-Performing Loans (NPLs) by an estimated 25%**, ensuring a much healthier credit book.
+*   **Eliminated Operational Fraud:** Integrating instantaneous **BVN and Identity Verification** directly at the ingestion gateway successfully eliminated application identity fraud bottlenecks prior to data processing.
+*   **Enhanced User Retargeting:** Instead of a dead-end rejection, the automated SMS CRM integration for low-score applicants converted a standard drop-off point into a financial health touchpoint, preserving long-term customer goodwill.
