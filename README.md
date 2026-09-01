@@ -57,7 +57,7 @@ The system logic follows a strict backend sequence to guarantee speed and transa
 * **Delivery Framework:** Agile / Scrum Methodologies (User Story mapping for microservices)
 
 
-**PROJECT 1**   **"GameVerse: A Mobile Gaming Platform for Casual and Competitive Gamers"**
+**PROJECT 2**   **"GameVerse: A Mobile Gaming Platform for Casual and Competitive Gamers"**
 
 
 **PROJECT BACKGROUND**
@@ -368,7 +368,7 @@ By serving as the analytical engine for this initiative, I systematically transl
 **Result:** Delivered a complete, multi-dimensional product requirements architecture package that resolves engineering operational silos and bridges the strategic gap between stakeholder vision and production delivery.
 
 
-**PROJECT 2** 
+**PROJECT 3** 
 
 
 # Case Study: Process Optimization for a Digital Joint Liability Group (JLG) Micro-Lending Engine 
@@ -436,7 +436,7 @@ The deployment of the Digital Joint Liability Group (JLG) Micro-Lending process 
 
 
 
-**PROJECT 3**   **MONIESPRINT**
+**PROJECT 4**   **MONIESPRINT**
 
 # Case Study: Automated Credit Decisioning & Disbursal Engine for Micro-Lending 
 
@@ -497,3 +497,43 @@ The implementation of the Moniesprint Automated Credit Decisioning and Disbursal
 
 
 
+**PROJECT 5**
+#  Case Study: Tiered Identity Engine Optimization (KYC & AML)
+
+##  1. Summary & Problem Identification
+
+In the retail banking and fintech sectors, onboarding velocity directly impacts market share growth. During an institutional process audit of our digital banking application, the following system deficiencies and operational friction points were identified:
+
+*   **Excessive Customer Abandonment:** The legacy onboarding process required all applicants to undergo a full identity verification suite—including manual physical ID checks and utility bill verification—before initiating a single transaction. This monolithic approach resulted in an unsustainable **52% drop-off rate** during user sign-up.
+*   **Operational Latency:** Manual review queues by the compliance department led to an average **48-hour delay** in account activation, preventing immediate customer engagement and stalling deposit generation.
+*   **Regulatory Risk & Compliance Bottlenecks:** Manual data entry from paper forms and legacy identity checks increased the risk of onboarding individuals on global watchlists, exposing the institution to severe anti-money laundering (AML) regulatory penalties.
+
+---
+
+##  2. The Solution: Tiered KYC Architectural Engine
+
+To resolve these friction points without violating Central Bank compliance guidelines, I designed an API-driven, **Tiered KYC & AML Engine**. This system breaks down identity verification into an incremental, value-driven funnel:
+### Tier 1 Validation (Instant Frictionless Access)
+*   **Input Requirements:** Mobile Phone Number + One-Time Password (OTP) verification.
+*   **System Action:** Instant account generation matching telco data.
+*   **Business Value:** Removes upfront barriers. Users are instantly onboarded with low transaction limits (Single: ₦50,000 / Cumulative Balance: ₦300,000), lowering initial drop-off rates.
+
+### Tier 2 Validation (Biometric Enrichment)
+*   **Input Requirements:** Bank Verification Number (BVN) / National Identification Number (NIN) + Real-time Liveness Selfie Capture.
+*   **System Action:** Engine executes an asynchronous API handshake with national identity registries, running a facial matching algorithm against database images.
+*   **Failure Protocol:** If the biometric match fails, the account is locked and automatically flagged to the Fraud & Compliance Team for manual intervention.
+*   **Success Protocol:** Instantly upgrades account limits (Single: ₦200,000 / Cumulative Balance: ₦1,000,000).
+
+### Tier 3 Validation (Full Institutional Access)
+*   **Input Requirements:** Digital upload of a valid Government ID Card + Verified Utility Bill.
+*   **System Action:** The system runs Optical Character Recognition (OCR) to extract text data asynchronously, while triggering an automated background AML/Sanction List screening check.
+*   **Failure Protocol:** If the applicant matches an AML watchlist or address verification fails, the account is placed on an immediate administrative hold and routed to manual compliance review.
+*   **Success Protocol:** Grants unrestricted premium account status, unlocking unlimited transaction values and commercial credit eligibility.
+*   ##  3. Quantifiable Business Results
+
+Following the end-to-end implementation of the Tiered Onboarding Engine, the platform achieved significant performance milestones within its first 4 months of production deployment:
+
+*   **Drastic Drop-Off Reduction:** Customer onboarding abandonment dropped from **52% to 14.5%**, exceeding the initial target metrics through the introduction of instant Tier 1 activation.
+*   **Accelerated Velocity:** Processing turnaround time (TAT) for Tier 1 and Tier 2 accounts fell from **48 hours to less than 45 seconds**, completely eliminating the manual operational backlog for retail profiles.
+*   **Increased Deposit Acquisition:** Facilitated the successful activation of **over 32,000 new active accounts monthly**, driving a 22% increase in the digital division's retail deposit base.
+*   **Enhanced Compliance Posture:** Automated AML screening and OCR identity matching reduced human data verification errors to 0%, ensuring 100% compliance during subsequent regulatory audits.
