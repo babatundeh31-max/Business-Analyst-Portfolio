@@ -1,4 +1,4 @@
-**PROJECT 1**
+## PROJECT 1 ##
 
 
 #  Automated Credit Evaluation & Real-Time Loan Disbursement System
@@ -42,7 +42,74 @@ The system logic follows a strict backend sequence to guarantee speed and transa
 * **Integration Specification:** Outlined requirements for 3rd-party API integrations (KYC databases, Credit Bureau systems, ACH networks).
 * **Error & Exception Handling Matrix:** Developed routing mechanisms for applicants who fail credit scores, ensuring proper secure logging and notification delivery.
 
+##  Core Deliverable: Business Rules Engine & Validation Matrix
+
+To support the automated lending pipeline architecture, the following Business Rules Matrix maps out the explicit functional logic gates, validation schemas, and system routings depicted in the process flowchart. 
+
+This engine acts as a sequential regulatory filter, ensuring only verified, low-risk loan applications proceed to automated settlement.
+
+| Processing Stage / Component | Rule ID | Functional Rule Description | Logic Operator / Condition | Mandatory Target / Action | Business Value & Rationale |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **01. Ingestion Point** | **BR-VAL-01** | The application must initialize transactions exclusively through designated, secure retail banking channels. | Channel == `USSD` \|\| `Mobile API` | Initialize session context and pass payload to identity verification module. | **Channel Integrity:** Restricts backend pipeline entry points to authorized user interfaces. |
+| **02. Identity Gate** | **BR-KYC-02** | The system must validate client identity using the national banking registry database before triggering credit scoring. | Input == Valid `BVN` (11 Digits) | Fetch record matching from Central Bank verification gateway. | **Fraud Mitigation:** Immediately halts unauthorized users or identity theft attempts at the system perimeter. |
+| **03. Structural Validation** | **BR-SYS-03** | The **Decision Diamond** must evaluate data integrity and identity clearance before spending integration tokens on deep assessments. | Identity == `Verified` && Schema == `True` | **IF YES:** Route session to Credit Bureau App. <br>**IF NO:** Route to immediate session termination handler. | **Infrastructure Cost Control:** Terminates failed or fraudulent entries immediately, eliminating wasted third-party check fees. |
+| **04. Credit Risk Appraisal** | **BR-CRD-04** | The system must query third-party credit bureau endpoints to pull historical repayment metrics and risk parameters. | Call `Credit Bureau App API` | Retrieve and parse applicant's credit score payload within 2,500ms. | **Data-Driven Underwriting:** Pulls live credit market histories to eliminate manual financial analysis tasks. |
+| **05. Policy Gate (Hard Rule)** | **BR-POL-05** | Applications must meet the minimum risk parameter threshold dictated by the institution's credit risk policy framework. | Condition Check: `Score >= 600` | **IF YES:** Release session to automated settlement queue.<br>**IF NO:** Terminate process and forward payload to decline engine. | **Capital Protection:** Programmatically protects bank liquidity by rejecting high-risk borrowers automatically. |
+| **06. Liquidity Settlement** | **BR-SET-06** | Approved configurations must trigger immediate, touchless disbursement to the applicant's verified bank account ledger. | Trigger `Automated Disbursement Engine` | Generate financial transaction reference and dispatch funds. | **Customer Experience:** Provides sub-minute loan turnaround times, radically reducing platform dropout rates. |
+| **07. Audit Trail Ledger** | **BR-AUD-07** | Live settlement execution pipelines must pass transactional state updates to localized ledger tracking monitors. | Route to `Payment Tracking` System | Log settlement state as `Done` and generate legal audit receipt. | **Compliance & Reporting:** Provides fully reconcilable transactional logging for regulatory reporting and central ledger tracking. |
+
+
+##  Project Artifact: Agile User Stories & Acceptance Criteria
+
+To facilitate development inside an Agile Scrum framework, the automated loan pipeline was broken down into functional epics and user stories. Below are the core stories detailing the identity, risk gating, and disbursement modules.
+
 ---
+
+###  US-01: Front-End Ingestion & Identity Validation (KYC Gate)
+*   **As a** Registered Retail Banking Customer,
+*   **I want to** input my BVN during the loan application setup,
+*   **So that** my identity can be instantly verified without uploading physical documents.
+
+####  Acceptance Criteria:
+*   **Scenario 1: Input Validation (Happy Path)**
+    *   **Given** the user is on the application interface,
+    *   **When** they type an 11-digit numerical BVN and submit,
+    *   **Then** the system must accept the string payload and forward it to the identity verification API.
+*   **Scenario 2: Malformed Input Exception**
+    *   **Given** the user inputs a BVN that is less than or greater than 11 digits, or contains alphabetic characters,
+    *   **When** they attempt to submit,
+    *   **Then** the system must block submission, display an inline error message (*"BVN must be exactly 11 digits"*), and prevent downstream API calls.
+    *   ###  US-02: Automated Risk Analysis & Decision Diamond
+*   **As a** Credit Risk Officer,
+*   **I want the system to** automatically pull credit bureau data and evaluate a borrower's credit score,
+*   **So that** we can instantly reject sub-prime borrowers and eliminate manual credit analysis.
+
+####  Acceptance Criteria:
+*   **Scenario 1: Applicant Meets Credit Policy Threshold**
+    *   **Given** the system has retrieved a credit report score for a verified customer,
+    *   **When** the score evaluated is **greater than or equal to 600** (`Score >= 600`),
+    *   **Then** the system must log the profile as `APPROVED_RISK_GATE` and route the session to the Automated Disbursement Engine.
+*   **Scenario 2: Applicant Fails Credit Policy Threshold**
+    *   **Given** the system retrieves a credit score for an applicant,
+    *   **When** the score evaluated is **less than 600** (`Score < 600`),
+    *   **Then** the system must terminate the session pipeline, update the status to `REJECTED_CREDIT`, and trigger an automated SMS notification explaining the decline.
+
+---
+
+###  US-03: Real-Time Automated Disbursement & Tracking
+*   **As a** Pre-Approved Loan Applicant,
+*   **I want my approved loan to be** deposited into my bank account immediately,
+*   *   **So that** I can access funds instantly without administrative delays.
+
+####  Acceptance Criteria:
+*   **Scenario 1: Successful Touchless Settlement**
+    *   **Given** an application has successfully passed the Credit Policy Gate,
+    *   **When** the system passes the balance allocation to the Automated Disbursement Engine,
+    *   **Then** it must trigger a real-time ACH transaction payout, register the state in the Payment Tracking module, and mark the entire pipeline status as `Done`.
+*   **Scenario 2: API Timeout Recovery Handling**
+    *   **Given** the system attempts to call the external disbursement gateway,
+    *   **When** the connection times out (exceeding 2,500ms),
+    *   **Then** the system must automatically retry the transaction hook up to **two (2) times** before flagging the record as `PENDING_RETRY` and alerting infrastructure support via the dashboard.
 
 ##  Projected Business Outcomes & Results
 * **Processing Speed:** Reduced loan processing and disbursement turnaround time from **24 hours to under 45 seconds**.
@@ -57,7 +124,7 @@ The system logic follows a strict backend sequence to guarantee speed and transa
 * **Delivery Framework:** Agile / Scrum Methodologies (User Story mapping for microservices)
 
 
-**PROJECT 2**   **"GameVerse: A Mobile Gaming Platform for Casual and Competitive Gamers"**
+## PROJECT 2 ##   **"GameVerse: A Mobile Gaming Platform for Casual and Competitive Gamers"**
 
 
 **PROJECT BACKGROUND**
@@ -424,7 +491,67 @@ To demonstrate how this visual flow translates into technical product deliverabl
 *   **Security:** All identity files, transaction requests, and digital signature vectors must be securely encrypted in-transit utilizing TLS 1.3 architecture.
 *   **Availability:** The backend API pipeline linking the Core Banking Lane to the Database Ledger must achieve an uptime threshold of 99.99% during peak operations.
 
-  
+
+##  Project Artifact: Business Rules Matrix
+
+This matrix details the strict logical conditions, cross-checks, and backend system pathways illustrated in the group lending process flowchart.
+
+| Processing Stage / Step | Rule ID | Functional Rule Description | Logic Operator / Condition | Mandatory Target / Action | Business Value & Rationale |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **01. Group Ingestion** | **BR-GRP-01** | Groups must initialize by binding a primary administrator profile with individual group member data points. | Create Group == `True` && Invite Members == `Complete` | Ingest and cache group profile dataset into the mobile application core layer. | **Data Integrity:** Ensures structural link between a cluster of borrowers before evaluation begins. |
+| **02. Balance Validation** | **BR-GRP-02** | The core database ledger must verify that the group meets the minimum joint collateral or locked savings threshold. | Evaluate Account Status == `Min 20% Locked Bal` | **IF YES:** Advance group state to the Evaluation Gate. <br>**IF NO:** Routinely trigger rejection notifications to group devices. | **Risk Mitigation:** Enforces microfinance security deposit controls to minimize default exposure. |
+| **03. Co-Signing Gate** | **BR-GRP-03** | Every invited member of the cluster must digitally execute the joint liability contract to validate the loan. | Verify Group Members == `Digitally Cross-Sign Contract` | **IF YES:** Generate digital Cross-Guarantor Contract payload.<br>**IF NO:** Abort workflow pipeline and issue failure alert. | **Legal Compliance:** Programmatically ensures collective joint liability is legally binding before capital leaves the bank. |
+| **04. Risk & Regulatory Check** | **BR-GRP-04** | The system must pass the contract payload through localized regulatory and internal credit underwriting checks. | Check Legal Compliance && Underwriting Gate == `True` | **IF YES:** Advance status flag to approved disbursal hook. <br>**IF NO:** Route to Application Denied & Flow Aborted pool. | **Regulatory Safety:** Guarantees group loan balances do not breach single-obligor or microfinance lending caps. |
+| **05. Touchless Settlement** | **BR-GRP-05** | Approved group loans must trigger automated real-time fund extraction and individual split wallet distribution. | Trigger `Automated Disbursal Hook` | Execute instant API fund push to individual group wallets/accounts. | **Operational Efficiency:** Eliminates manual physical check handouts or cash handovers at branch floors. |
+##  Project Artifact: Agile User Stories & Acceptance Criteria
+
+To support product development within an Agile Scrum framework, the workflow logic is structured below into actionable user stories using **Gherkin syntax** (Given-When-Then).
+
+###  US-01: Group Savings Eligibility Check
+*   **As an** MFB Group Administrator,
+*   **I want the system to** automatically check our group’s locked savings status,
+*   **So that** we can immediately find out if we qualify for a group loan without visiting a physical branch.
+
+####  Acceptance Criteria:
+*   **Scenario 1: Group Meets 20% Locked Savings Threshold (Happy Path)**
+    *   **Given** a group has submitted an initial loan application payload,
+    *   **When** the core ledger confirms the collective account has **at least a 20% locked balance** relative to the loan amount,
+    *   **Then** the system must mark the eligibility check as `PASSED` and open the Digital Cross-Guarantor Contract gate.
+*   **Scenario 2: Insufficient Group Savings Balance**
+    *   **Given** a group has submitted an application payload,
+    *   **When** the database ledger indicates the locked savings balance is **less than 20%**,
+    *   **Then** the system must execute the `Flow Aborted` handler and send a notification to all group members stating the deficit amount.
+  ###  US-02: Digital Cross-Guarantor Execution
+*   **As a** Group Member,
+*   **I want to** review and digitally cross-sign the loan contract directly inside my mobile app,
+*   **So that** I don't have to sign physical paper liability forms at the bank office.
+
+####  Acceptance Criteria:
+*   **Scenario 1: Unanimous Group Sign-Off Achieved**
+    *   **Given** a group loan application requires digital sign-off from all 5 invited members,
+    *   **When** the final member clicks **"Cross-Sign Contract"**,
+    *   **Then** the system must lock the document state, compile the `Cross-Guarantor Contract`, and pass it instantly to the Underwriting Gate.
+*   **Scenario 2: Missing Group Member Sign-Off (Timeout or Decline)**
+    *   **Given** an open group loan request is pending signatures,
+    *   **When** any individual group member clicks **"Decline"** or the 48-hour signature window expires,
+    *   **Then** the system must flag the application as `Application Denied & Flow Aborted` and notify the group administrator.
+
+---
+
+###  US-03: Real-Time Split Wallet Disbursal
+*   **As a** Verified Group Member,
+*   **I want my approved share of the loan to be** pushed directly into my individual digital wallet,
+*   **So that** I can withdraw and use my funds instantly.
+*   ####  Acceptance Criteria:
+*   **Scenario 1: Zero-Touch API Fund Push**
+    *   **Given** the group application has successfully passed the legal compliance and Underwriting Gate,
+    *   **When** the system hits the automated disbursal hook,
+    *   **Then** it must execute an instant parallel API call to split and push the correct loan portions into each individual member’s account wallet.
+*   **Scenario 2: Disbursal Execution Failure Tracking**
+    *   **Given** the system is processing the instant fund push,
+    *   **When** a ledger account error occurs on an individual member's wallet,
+    *   **Then** the system must freeze that specific sub-transaction, route the state to `DISBURSAL_EXCEPTION_HOLD`, and log a tracking ticket for treasury audit.
+    *   
 ###  Project Results & Business Impact: 
 
 The deployment of the Digital Joint Liability Group (JLG) Micro-Lending process architecture completely optimized the bank's operational efficiency, lowered credit risk exposure, and modernized field collections. By transitioning from manual, paper-based workflows to an automated, cross-functional system engine, the project delivered the following tangible business outcomes:
@@ -485,6 +612,39 @@ To show recruiters you understand fintech compliance, security, and performance 
 *   **Security & Compliance:** All ingested BVN payloads must be encrypted in transit using TLS 1.3 and at rest using AES-256 to ensure data privacy.
 *   **Performance (Latency):** Third-party API calls to the Credit Bureau gateway must enforce a maximum timeout window of 3000ms; failures must gracefully trigger a retry loop before throwing a system timeout message.
 *   **Scalability:** The Automated Disbursement Engine must be capable of processing up to 500 concurrent API requests without degrading response times.
+
+
+##  Project Artifact: Business Rules Matrix
+
+This matrix maps out the decision nodes, conditional filters, and backend ledger events required to run the automated trader credit loop.
+
+| Processing Stage / Step | Rule ID | Functional Rule Description | Logic Operator / Condition | Mandatory Target / Action | Business Value & Rationale |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **01. User Ingestion** | **BR-TDR-01** | The application must initialize by prompting the trader to input key demographic and financial identifier payloads. | Input == `Phone Number` && `BVN` | Pass string payload securely to the centralized KYC validation engine. | **Data Verification:** Guarantees a unique user anchor exists before querying credit registers. |
+| **02. Perimeter KYC Gate** | **BR-TDR-02** | System must verify that the inputted identity tokens match active, legally valid central bank registration records. | Identity Status == `Valid Identity?` | **IF YES:** Route customer payload to Credit Bureau App.<br>**IF NO:** Execute rejection notification loop and close session. | **Fraud Mitigation:** Shuts down identity theft or fraudulent loan applications before infrastructure costs are incurred. |
+| **03. Credit Bureau Sync** | **BR-TDR-03** | The system must query third-party credit registries to calculate total debt exposure and active micro-loan histories. | Call `Credit Bureau App` API | Extract user repayment history metrics within an acceptable system timeout window. | **Risk Transparency:** Protects the bank from over-leveraging traders who hold multiple bad loans elsewhere. |
+| **04. Underwriting Filter** | **BR-TDR-04** | Applications must clear the minimum internal risk policy benchmark set for nano-credit products. | Underwriting Metric == `Score >= 600?` | **IF YES:** Advance request directly to the Automated Disbursement Engine.<br>**IF NO:** Route profile to the automated financial health tip handler. | **Credit Quality Guard:** Automates loan approvals safely while protecting the bank's non-performing loan (NPL) ratios. |
+| **05. Customer Retention** | **BR-TDR-05** | Rejected applicants must receive clear, actionable feedback to foster financial inclusion and future customer acquisition. | Underwriting Status == `Score = 600`),
+    *   **Then** the system must log `RISK_CLEAR`, bypass human underwriting, and forward the request to the Automated Disbursement Engine.
+*   **Scenario 2: Credit Score Rejected with Educational Fallback**
+    *   **Given** the extracted credit score is **below 600** (`Score < 600`),
+    *   **When** the decision logic branches to the `No` path,
+    *   **Then** the system must block disbursement, change status to `DECLINED_CREDIT`, and trigger an external SMS notification containing targeted advice on how to improve financial health.
+
+###  US-03: Real-Time API Disbursal & Automated Repayment Setup
+*   **As a** Pre-Approved Trader,
+*   **I want my loan funds deposited instantly and my repayments automated**,
+*   **So that** I can purchase inventory immediately and pay it back seamlessly from my weekly earnings.
+
+####  Acceptance Criteria:
+*   **Scenario 1: Instant API Disbursal Settlement**
+    *   **Given** an application status is marked as `APPROVED_RISK_GATE`,
+    *   **When** the workflow reaches the disbursement stage,
+    *   **Then** the system must execute an instant API fund push to the trader’s bank account/wallet and log the transfer as successful.
+*   **Scenario 2: Automated Repayment Direct-Debit Scheduling**
+    *   **Given** the disbursement engine has logged a successful payout confirmation,
+    *   **When** the session passes the context to the Payment Tracking module,
+    *   **Then** the system must programmatically inject a weekly or monthly direct-debit schedule into the Core Banking System matching the approved loan terms.
 
 *   ###  Project Results & Business Impact: Moniesprint
 
