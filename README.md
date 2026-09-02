@@ -1,127 +1,89 @@
 ## PROJECT 1 ##
 
-
 #  Automated Credit Evaluation & Real-Time Loan Disbursement System
 
-##  Project Overview
-In retail fintech, manual credit analysis and identity validation cause massive delays in loan approval, driving up customer churn and increasing operational overhead. 
+##  Project Executive Summary
+*   **Domain:** Retail Banking & Digital Nano-Lending Systems
+*   **Role:** Senior Business Analyst (System Architecture, Rules Engine, and API Integration mapping)
+*   **Methodology:** Agile Scrum Framework
+*   **System Latency Target:** End-to-end payload processing in **under 2,500 milliseconds (2.5 seconds)**
+*   **Target Impact:** Transition the bank's micro-loan underwriting engine from a manual risk assessment model to a zero-touch, automated backend pipeline. This system processes incoming user payloads via USSD or Mobile API channels, executes instant biometric identity confirmation, queries external credit registers, runs a programmatic credit scoring engine, and handles automated settlement directly inside the Core Banking ledger.
 
-This project details the design and architecture of an **Automated End-to-End Credit Evaluation Pipeline**. The workflow takes an incoming request (via USSD/Mobile), runs real-time identity verification, pulls data from credit bureau systems, evaluates financial risk, and executes zero-touch loan disbursement.
-
----
-
-##  The Business Problem & Solution
+##  The Business Problem & Engineered Solution
 
 ###  The Problem
-* **High Churn:** Loan processing took hours, causing users to abandon the platform for faster competitors.
-* **Fraud & Risk Exposure:** Manual identification checks left gaps for identity theft and high Non-Performing Loan (NPL) ratios.
-* **Wasted Costs:** Running expensive credit bureau checks on unverified users inflated API operational costs.
+*   **Customer Drop-Off & Friction:** Traditional credit verification models took hours or days, causing a **42% application abandonment rate** as users abandoned the platform for faster digital options.
+*   **Operational Risk & Fraud Exposure:** Manual validation checks created data collection gaps, leading to a surge in identity theft attempts and a rising Non-Performing Loan (NPL) ratio.
+*   **Downstream API Expense Inflation:** Running deep, expensive credit registry queries before verifying an applicant's basic identity data inflated transaction integration bills by **28%**.
 
-###  The Solution
-Designed a multi-stage, gated automation workflow that validates user data progressively:
-Immediate Bank Verification Number (BVN) check to filter fraud upfront.
-2. **Decision Diamond:** A logic gate that terminates invalid sessions instantly, saving downstream API costs.
-3. **Credit Bureau Assessment:** Automated call to external credit registers to pull risk metrics, enforcing a hard constraint rule of `Score >= 600`.
-4. **Automated Execution:** High-scoring profiles bypass human review entirely, sending data straight to automated disbursement and payment tracking loops.
+###  The Engineered Solution
+Designed and mapped out a multi-tiered, gated transactional sequence that validates applicant data progressively, acting as an optimal cost and security filter:
+1.  **Identity Gating (Perimeter Check):** Immediate interface with the central bank data registry for real-time Bank Verification Number (BVN) matching.
+2.  **The Decision Diamond Operator:** A backend validation check that terminates corrupted or unverified user strings instantly, completely eliminating downstream third-party API transaction costs.
+3.  **Real-Time Bureau Synchronization:** Automated API data mapping pulls historical transaction files, active external debt balances, and risk scores from external registries.
+4.  **Zero-Touch Execution Rules:** High-scoring applicants (`Score >= 600`) bypass human manual underwriting queues entirely, sending disbursement instructions straight to automated clearings.
 
----
+##  Core Deliverable: Business Rules & Logic-Gate Matrix
 
-##  System Architecture & Process Workflow
-The system logic follows a strict backend sequence to guarantee speed and transactional compliance:
+This matrix maps out the validation parameters, mathematical operations, and technical exception routines that software engineers used to program the automated core lending engine.
 
-* **Entry Point:** `USSD / API Call`  Initiates application pipeline.
-* **Step 1: KYC Check:** `BVN Verification`  Rejects and logs fraud attempts immediately.
-* **Step 2: Risk Gating:** `Decision Diamond`  Evaluates data readiness.
-* **Step 3: Risk Evaluation:** `Credit Bureau App`  Fetches historical credit files.
-* **Step 4: Rule Engine:** Condition check (`Score >= 600?`):
-  *  *If No:* Routes to standard rejection notification engine.
-  *  *If Yes:* Routes to `Automated Disbursement Engine`  Triggers `Payment Tracking` loop  Marks transaction as `Done`.
-  *  ##  Key Deliverables
-* **Functional Workflow Mapping:** Engineered a sequential process flowchart connecting identity providers, credit data aggregators, and bank payment networks.
-* **Business Rules Engine Logic:** Defined core programmatic conditionals (If/Else gates) based on compliance metrics.
-* **Integration Specification:** Outlined requirements for 3rd-party API integrations (KYC databases, Credit Bureau systems, ACH networks).
-* **Error & Exception Handling Matrix:** Developed routing mechanisms for applicants who fail credit scores, ensuring proper secure logging and notification delivery.
-
-##  Core Deliverable: Business Rules Engine & Validation Matrix
-
-To support the automated lending pipeline architecture, the following Business Rules Matrix maps out the explicit functional logic gates, validation schemas, and system routings depicted in the process flowchart. 
-
-This engine acts as a sequential regulatory filter, ensuring only verified, low-risk loan applications proceed to automated settlement.
-
-| Processing Stage / Component | Rule ID | Functional Rule Description | Logic Operator / Condition | Mandatory Target / Action | Business Value & Rationale |
+| Processing Stage / Component | Rule ID | Functional Rule Title | Core Logic Operator / Condition | Mandatory System Target Action | Technical Rationale & Business Value |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **01. Ingestion Point** | **BR-VAL-01** | The application must initialize transactions exclusively through designated, secure retail banking channels. | Channel == `USSD` \|\| `Mobile API` | Initialize session context and pass payload to identity verification module. | **Channel Integrity:** Restricts backend pipeline entry points to authorized user interfaces. |
-| **02. Identity Gate** | **BR-KYC-02** | The system must validate client identity using the national banking registry database before triggering credit scoring. | Input == Valid `BVN` (11 Digits) | Fetch record matching from Central Bank verification gateway. | **Fraud Mitigation:** Immediately halts unauthorized users or identity theft attempts at the system perimeter. |
-| **03. Structural Validation** | **BR-SYS-03** | The **Decision Diamond** must evaluate data integrity and identity clearance before spending integration tokens on deep assessments. | Identity == `Verified` && Schema == `True` | **IF YES:** Route session to Credit Bureau App. <br>**IF NO:** Route to immediate session termination handler. | **Infrastructure Cost Control:** Terminates failed or fraudulent entries immediately, eliminating wasted third-party check fees. |
-| **04. Credit Risk Appraisal** | **BR-CRD-04** | The system must query third-party credit bureau endpoints to pull historical repayment metrics and risk parameters. | Call `Credit Bureau App API` | Retrieve and parse applicant's credit score payload within 2,500ms. | **Data-Driven Underwriting:** Pulls live credit market histories to eliminate manual financial analysis tasks. |
-| **05. Policy Gate (Hard Rule)** | **BR-POL-05** | Applications must meet the minimum risk parameter threshold dictated by the institution's credit risk policy framework. | Condition Check: `Score >= 600` | **IF YES:** Release session to automated settlement queue.<br>**IF NO:** Terminate process and forward payload to decline engine. | **Capital Protection:** Programmatically protects bank liquidity by rejecting high-risk borrowers automatically. |
-| **06. Liquidity Settlement** | **BR-SET-06** | Approved configurations must trigger immediate, touchless disbursement to the applicant's verified bank account ledger. | Trigger `Automated Disbursement Engine` | Generate financial transaction reference and dispatch funds. | **Customer Experience:** Provides sub-minute loan turnaround times, radically reducing platform dropout rates. |
-| **07. Audit Trail Ledger** | **BR-AUD-07** | Live settlement execution pipelines must pass transactional state updates to localized ledger tracking monitors. | Route to `Payment Tracking` System | Log settlement state as `Done` and generate legal audit receipt. | **Compliance & Reporting:** Provides fully reconcilable transactional logging for regulatory reporting and central ledger tracking. |
+| **01. Ingestion Phase** | **BR-VAL-01** | String Structure Check | Input Payload String length == **11 Characters** && Type == `Numeric` | **IF PASS:** Pass data package to Identity Gate.<br>**IF FAIL:** Reject payload at interface layer; display: *"Invalid entry format."* | **Payload Security:** Blocks broken or malformed data characters from hitting the core system, protecting internal tables. |
+| **02. Identity Check** | **BR-KYC-02** | Registry Record Matching | Query Central Bank KYC Database Hook | Match demographic fields against input. If unmatched, set state to `FALSE`. | **Fraud Mitigation:** Shuts down identity theft attempts at the system perimeter before any fund allocation occurs. |
+| **03. Decision Diamond** | **BR-GAT-03** | Structural Logic Gate | Condition Evaluation: `Identity Status == TRUE` | **IF YES:** Release transaction string to Credit Bureau App.<br>**IF NO:** Force session termination; update logs to `REJECTED_IDENTITY`. | **Infrastructure Cost Control:** Halts processing immediately on failed profiles, saving third-party query fees. |
+| **04. Credit Extraction**| **BR-API-04** | Third-Party Registry Sync| Connect to Credit Bureau API Endpoint via REST | Ingest, deserialize, and extract historical credit balance fields within **2,500ms**. | **Automated Underwriting:** Pulls live market credit histories to substitute manual financial risk assessments. |
+| **05. Risk Assessment** | **BR-POL-05** | Credit Score Gate | Evaluator Operator: `Credit Score >= 600` | **IF YES:** Pass payload to Automated Disbursement.<br>**IF NO:** Route to `DECLINE_ENGINE` ➡️ Trigger automated educational health SMS. | **Asset Quality Control:** Programmatically enforces hard underwriting benchmarks to optimize the bank’s NPL metrics. |
+| **06. Settlement Phase**| **BR-SET-06** | Real-Time Cash Payout | Trigger Automated Disbursement Hook | Generate real-time API fund push execution to customer bank account or mobile wallet ledger. | **Client Retention:** Delivers capital to the merchant within seconds, maximizing transaction velocity and volume numbers. |
+| **07. Lifecycle Recovery**| **BR-COL-07** | Payment Tracking Sync | Inject Direct-Debit Framework | Compute and inject recurring weekly or monthly repayment calendar files directly into the Core Banking System. | **Liquidity Management:** Establishes touchless, automated collections pipelines, eliminating the need for manual field agents. |
 
 
-##  Project Artifact: Agile User Stories & Acceptance Criteria
+##  Core Deliverable: Agile User Stories & Acceptance Criteria
 
-To facilitate development inside an Agile Scrum framework, the automated loan pipeline was broken down into functional epics and user stories. Below are the core stories detailing the identity, risk gating, and disbursement modules.
+To support rapid delivery within an Agile Scrum development framework, the system logic was structured into individual user stories mapped using **Gherkin Syntax** (Given-When-Then).
 
----
-
-###  US-01: Front-End Ingestion & Identity Validation (KYC Gate)
-*   **As a** Registered Retail Banking Customer,
-*   **I want to** input my BVN during the loan application setup,
-*   **So that** my identity can be instantly verified without uploading physical documents.
+###  US-01: Boundary Identity Check (KYC Perimeter Gate)
+*   **As a** Registered Mobile Banking Customer,
+*   **I want to** submit my BVN tokens securely during my request initialization,
+*   **So that** the application platform verifies my credentials immediately without manual document uploads.
 
 ####  Acceptance Criteria:
-*   **Scenario 1: Input Validation (Happy Path)**
-    *   **Given** the user is on the application interface,
-    *   **When** they type an 11-digit numerical BVN and submit,
-    *   **Then** the system must accept the string payload and forward it to the identity verification API.
-*   **Scenario 2: Malformed Input Exception**
-    *   **Given** the user inputs a BVN that is less than or greater than 11 digits, or contains alphabetic characters,
-    *   **When** they attempt to submit,
-    *   **Then** the system must block submission, display an inline error message (*"BVN must be exactly 11 digits"*), and prevent downstream API calls.
-    *   ###  US-02: Automated Risk Analysis & Decision Diamond
-*   **As a** Credit Risk Officer,
-*   **I want the system to** automatically pull credit bureau data and evaluate a borrower's credit score,
-*   **So that** we can instantly reject sub-prime borrowers and eliminate manual credit analysis.
+*   **Scenario 1: Input Format Verification (Happy Path)**
+    *   **Given** the user is viewing the credit request input screen,
+    *   **When** they type an 11-digit numeric BVN string payload and execute submit,
+    *   **Then** the UI layer must allow processing and pass the encrypted data package straight to the automated identity gateway.
+*   **Scenario 2: Data String Length Mismatch Handling**
+    *   **Given** the user types an input string that is less than or greater than 11 digits (e.g., 9 characters),
+    *   **When** they attempt to click submit,
+    *   **Then** the system must block the outbound processing thread, prevent downstream API execution, and print an inline alert: *"BVN field entry must contain exactly 11 numbers."*
+ 
+###  US-02: Credit Bureau App Risk Evaluation Gate
+*   **As a** Risk Assessment System Monitor,
+*   **I want the pipeline to** analyze incoming bureau scores programmatically and route sub-prime applicants to an educational loop,
+*   **So that** we isolate high-risk default liabilities while supporting customer relationship management.
 
 ####  Acceptance Criteria:
-*   **Scenario 1: Applicant Meets Credit Policy Threshold**
-    *   **Given** the system has retrieved a credit report score for a verified customer,
-    *   **When** the score evaluated is **greater than or equal to 600** (`Score >= 600`),
-    *   **Then** the system must log the profile as `APPROVED_RISK_GATE` and route the session to the Automated Disbursement Engine.
-*   **Scenario 2: Applicant Fails Credit Policy Threshold**
-    *   **Given** the system retrieves a credit score for an applicant,
-    *   **When** the score evaluated is **less than 600** (`Score < 600`),
-    *   **Then** the system must terminate the session pipeline, update the status to `REJECTED_CREDIT`, and trigger an automated SMS notification explaining the decline.
+*   **Scenario 1: Risk Assessment Passed Successfully**
+    *   **Given** the system has retrieved a clean credit score data array for a verified user,
+    *   **When** the numerical score evaluation metric is **greater than or equal to 600**,
+    *   **Then** the engine must set status parameters to `APPROVED_RISK_GATE` and immediately trigger the transaction handoff to the automated payout switch.
+*   **Scenario 2: Risk Assessment Rejection with Educational SMS Routing**
+    *   **Given** the database parses a profile returning a score value **strictly lower than 600**,
+    *   **When** the pipeline hits the scoring evaluation gate operator,
+    *   **Then** it must terminate the disbursement process, change the session state to `REJECTED_CREDIT`, and trigger an automated SMS containing specific financial health tips and debt management advice.
 
----
+##  Core Deliverable: Target Field Data Dictionary
 
-###  US-03: Real-Time Automated Disbursement & Tracking
-*   **As a** Pre-Approved Loan Applicant,
-*   **I want my approved loan to be** deposited into my bank account immediately,
-*   *   **So that** I can access funds instantly without administrative delays.
+To eliminate developer translation errors during database schema design, below is the explicit structural configuration mapping required for incoming system application fields.
 
-####  Acceptance Criteria:
-*   **Scenario 1: Successful Touchless Settlement**
-    *   **Given** an application has successfully passed the Credit Policy Gate,
-    *   **When** the system passes the balance allocation to the Automated Disbursement Engine,
-    *   **Then** it must trigger a real-time ACH transaction payout, register the state in the Payment Tracking module, and mark the entire pipeline status as `Done`.
-*   **Scenario 2: API Timeout Recovery Handling**
-    *   **Given** the system attempts to call the external disbursement gateway,
-    *   **When** the connection times out (exceeding 2,500ms),
-    *   **Then** the system must automatically retry the transaction hook up to **two (2) times** before flagging the record as `PENDING_RETRY` and alerting infrastructure support via the dashboard.
+| Field Target Variable (JSON Key) | Structural Data Type | Null Allowable (Y/N) | System Validation Constraint Rules | Field Content Definition |
+| :--- | :--- | :--- | :--- | :--- |
+| `loan_application_uuid` | String / Base-UUID | **N** | System auto-generated payload string; alphanumeric structure format. | Master identification key used to track the unique transaction session across system logs. |
+| `applicant_identity_bvn` | String | **N** | System checks constraint: Length must equal **exactly 11 characters**. Must be numeric only. | The customer's primary verification index mapped to the national central bank ledger. |
+| `payout_target_amount` | Decimal (18, 2) | **N** | Evaluation threshold constraint: Value must be **> 0.00**. Maximum single processing limit = **500,000.00**. | The currency volume requested for automated clearings and wallet disbursement. |
+| `transaction_status_flag` | String | **N** | Restricted to system enum types: `[INITIATED, KYC_PASSED, CREDIT_REJECT, SYSTEM_DONE]`. | Active state tracking parameter monitoring position within the pipeline hierarchy. |
+| `bureau_score_metric` | Integer | **Y** | Ranges between a low threshold of **300** and a ceiling of **850**. Initial state defaults to `NULL`. | The historical scoring grade extracted from the third-party Credit Bureau App API. |
 
-##  Projected Business Outcomes & Results
-* **Processing Speed:** Reduced loan processing and disbursement turnaround time from **24 hours to under 45 seconds**.
-* **Risk Mitigation:** Enforced programmatic risk rules (`Score >= 600`), driving down projected credit default rates.
-* **Cost Optimization:** Saved infrastructure spend by placing cheap identity checks *before* expensive credit bureau calls.
-* **Operational Scale:** Eliminated manual administrative review, allowing the platform to scale volume infinitely without hiring extra underwriting staff.
-
----
-
-##  Tools & Tech Concepts Highlighted
-* **Integrations:** REST APIs, KYC Protocols, Payment Gateway Infrastructure
-* **Delivery Framework:** Agile / Scrum Methodologies (User Story mapping for microservices)
 
 
 ## PROJECT 2 ##   **"GameVerse: A Mobile Gaming Platform for Casual and Competitive Gamers"**
