@@ -443,7 +443,7 @@ This project details the process optimization and system architecture requiremen
 
 Utilizing cross-functional swimlanes, I mapped a 14-node interaction workflow that spans the client interface, frontend validation screens, core banking transaction engines, and backend credit database records to enforce automated risk management gates.
 
----
+
 
 ##  The Framework 
 
@@ -655,8 +655,59 @@ The implementation of the Moniesprint Automated Credit Decisioning and Disbursal
 
 
 
-**PROJECT 5**
-#  Case Study: Tiered Identity Engine Optimization (KYC & AML)
+## PROJECT 5 ##
+
+
+# 🌐 Wealth Management & Automated Retail Foreign Exchange Platform
+
+## 📌 Project Executive Summary
+*   **Domain:** Commercial Asset Management, Wealth Management & Cross-Border Retail FX Markets
+*   **Role:** Technical Business Analyst (User Journey Mapping, Real-Time Market Rate Sync, and Fraud Risk Gating)
+*   **Compliance Standard:** Complete alignment with Central Bank Capital Importation & FX Anti-Money Laundering Frameworks.
+*   **Target Impact:** Replace manual, over-the-counter bureau-de-change operations with a fully automated, high-velocity digital asset conversion and investment engine. The system allows verified retail customers to swap local currencies for foreign denominations instantly, establish targeted multi-currency savings goals, and purchase high-yield international bonds.
+
+## 💡 The Business Problem & Engineered Solution
+
+### ⚠️ The Problem
+*   **Extreme Execution Volatility:** High processing latency in manual exchange requests exposed the commercial bank to heavy market loss dimensions due to swift currency price shifts mid-transaction.
+*   **Compliance Sourcing Violations:** Manual tracking of foreign exchange purchases made it difficult to verify individual customer annual FX purchase limits, creating exposure to heavy central banking audit financial penalties.
+*   **High Wealth Management Entry Barriers:** High-yield international investment opportunities were restricted to ultra-high-net-worth corporate lines due to expensive manual branch onboarding steps.
+
+### ✅ The Engineered Solution
+Designed a unified web and mobile FX processing interface that enforces hard central bank boundaries programmatically:
+1.  **Real-Time Price Sync Middleware:** Connects directly via secure low-latency REST hooks to international market rate feeds, embedding an automatic 50-pip spread buffer margin to protect the bank's processing capital.
+2.  **Programmatic FX Allowance Checker:** A processing tracking mechanism that aggregates a client's rolling historical purchases against legal regulatory limits before opening execution pathways.
+3.  **Fractional Eurobond Engine:** Built structural asset-splitting microservices allowing everyday retail users to purchase fractions of international dollar bonds starting at $10.00.
+
+##  Project Artifact: Agile User Stories & Acceptance Criteria
+
+###  US-01: Real-Time Dynamic FX Currency Swap
+*   **As an** Active Retail Investment App Client,
+*   **I want to** review streaming currency conversion rates and execute instant swaps,
+*   **So that** I can shield my capital liquidity from inflation without manual branch banking delays.
+
+####  Acceptance Criteria:
+*   **Scenario 1: Secure Rate Locking & Processing Execution (Happy Path)**
+    *   **Given** a user has chosen a target conversion currency pair (e.g., NGN to USD) and entered an allocation volume,
+    *   **When** they click "Fetch Conversion Quote",
+    *   **Then** the system must lock the calculated quote rate for **exactly 15 seconds**, requiring the user to tap "Confirm Swap" before the countdown hits zero.
+*   **Scenario 2: Quotation Timeout Expiration**
+    *   **Given** a user is viewing a locked exchange rate quote screen,
+    *   **When** the 15-second tracking window expires without user submission,
+    *   **Then** the system must invalidate the quote signature, block execution, clear the screen inputs, and prompt: *"Quote expired. Please refresh to pull current rates."*
+
+###  US-02: Programmatic Central Bank Purchasing Guardrail
+*   **As a** Corporate Compliance Lead,
+*   **I want the software to** block transactions if a user's transaction history breaches annual central bank purchase guidelines,
+*   **So that** our operating license is protected from structural regulatory enforcement actions.
+
+####  Acceptance Criteria:
+*   **Given** a customer is attempting to convert domestic balances into an international asset pocket,
+*   **When** the compliance checker engine confirms that the current transaction value plus the user's rolling 12-month historical usage **exceeds legal allowances**,
+*   **Then** the engine must freeze processing, throw error flag `LIMIT_EXCEEDED_REJECT`, and display: *"Transaction declined: Annual central bank currency purchasing limits reached."*
+
+## PROJECT 6 ##
+#  Project Title : Tiered Identity Engine Optimization (KYC & AML)
 
 ##  1. Summary & Problem Identification
 
