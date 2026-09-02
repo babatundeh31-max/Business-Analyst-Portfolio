@@ -86,7 +86,43 @@ To eliminate developer translation errors during database schema design, below i
 
 
 
-## PROJECT 2 ##   **"GameVerse: A Mobile Gaming Platform for Casual and Competitive Gamers"**
+## PROJECT 2 ##
+
+#  Corporate B2B Cash Management & Automated Invoicing Platform
+
+##  Project Executive Summary
+*   **Domain:** Commercial Corporate Banking & B2B Treasury Operations
+*   **Role:** Lead Business Analyst (Data Flow Mapping, Open API Specifications, and Core Reconciliation Engines)
+*   **System Performance Metric:** Real-time liquidity reporting with sub-500ms multi-currency account aggregation.
+*   **Target Impact:** Eliminate manual bank statement parsing for multinational enterprise clients by architecting an automated B2B Cash Management Portal. The platform handles multi-currency corporate wallet grouping, matches batch incoming invoices against incoming clearings via virtual accounts, and sets up real-time automated treasury sweeps to maximize overnight yield.
+
+##  The Business Problem & Engineered Solution
+
+###  The Problem
+*   **Reconciliation Inefficiencies:** Corporate customers manually matched hundreds of daily incoming bank transfers against outstanding ERP invoices, creating a **3-to-5 day reconciliation delay** and high operational error tracking rates.
+*   **Fragmented Multi-Currency Liquidity:** Multi-national clients held idle cash across multiple regional and currency accounts without a single unified reporting interface, leading to high currency variance exposure.
+*   **Manual FX Operational Friction:** Executing cross-currency sweeps or internal account funding required physical paperwork or manual authorization steps, exposing corporate lines to market fluctuations.
+
+###  The Engineered Solution
+Designed a unified corporate portal equipped with virtual account allocation infrastructure to automate downstream accounting lines:
+1.  **Virtual Account Engine (Van Hub):** Dynamically allocates unique tracking bank account identifiers per corporate customer invoice to ensure instant, zero-touch transaction tracking.
+2.  **Automated Split-Matching Parser:** A backend processing system that reads incoming payment clearing scripts, pulls outstanding ERP values, and instantly marks invoices as `SETTLED`.
+3.  **Programmable Treasury Sweep Engines:** Built business rule switches allowing corporate treasurers to configure automated liquidity sweeps (e.g., *"If USD balance crosses $100K, sweep excess to parent interest yield account"*).
+
+##  Core Deliverable: Target Field Data Dictionary
+
+| API Key / Database Field | Technical Data Type | Required (Y/N) | Data Constraints & Logic Rules | Field Context Definition |
+| :--- | :--- | :--- | :--- | :--- |
+| `corporate_client_id` | String / UUID | **Y** | Unique alphanumeric tracking framework. | Tracks the parent multinational corporation identity parameter. |
+| `invoice_reference_num` | String | **Y** | Must be unique. Text alphanumeric alphanumeric layout. | The invoice tracking identifier imported directly from the client's internal ERP software. |
+| `virtual_account_string`| String | **Y** | Must be numeric layout. Length constrained to **exactly 10 digits**. | The temporary virtual banking account string assigned to capture inbound clearings for this specific invoice. |
+| `invoice_currency_iso` | String | **Y** | Must match strict ISO 4217 currency guidelines `[USD, EUR, NGN, GBP]`. | Specifies the core processing asset denomination tracking group. |
+| `settlement_variance` | Decimal (18, 4) | **N** | Auto-calculated fields. Default initialization state equals `0.0000`. | Captures processing discrepancies if inbound clearings fail to match outstanding balances. |
+
+
+
+
+## PROJECT 3 ##   **"GameVerse: A Mobile Gaming Platform for Casual and Competitive Gamers"**
 
 
 **PROJECT BACKGROUND**
