@@ -122,7 +122,9 @@ Designed a unified corporate portal equipped with virtual account allocation inf
 
 
 
-## PROJECT 3 ##   **"GameVerse: A Mobile Gaming Platform for Casual and Competitive Gamers"**
+## PROJECT 3 ##   
+
+**"GameVerse: A Mobile Gaming Platform for Casual and Competitive Gamers"**
 
 
 **PROJECT BACKGROUND**
