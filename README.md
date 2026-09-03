@@ -660,22 +660,22 @@ The implementation of the Moniesprint Automated Credit Decisioning and Disbursal
 ## PROJECT 5 ##
 
 
-# 🌐 Wealth Management & Automated Retail Foreign Exchange Platform
+#  Wealth Management & Automated Retail Foreign Exchange Platform
 
-## 📌 Project Executive Summary
+##  Project Executive Summary
 *   **Domain:** Commercial Asset Management, Wealth Management & Cross-Border Retail FX Markets
 *   **Role:** Technical Business Analyst (User Journey Mapping, Real-Time Market Rate Sync, and Fraud Risk Gating)
 *   **Compliance Standard:** Complete alignment with Central Bank Capital Importation & FX Anti-Money Laundering Frameworks.
 *   **Target Impact:** Replace manual, over-the-counter bureau-de-change operations with a fully automated, high-velocity digital asset conversion and investment engine. The system allows verified retail customers to swap local currencies for foreign denominations instantly, establish targeted multi-currency savings goals, and purchase high-yield international bonds.
 
-## 💡 The Business Problem & Engineered Solution
+##  The Business Problem & Engineered Solution
 
-### ⚠️ The Problem
+###  The Problem
 *   **Extreme Execution Volatility:** High processing latency in manual exchange requests exposed the commercial bank to heavy market loss dimensions due to swift currency price shifts mid-transaction.
 *   **Compliance Sourcing Violations:** Manual tracking of foreign exchange purchases made it difficult to verify individual customer annual FX purchase limits, creating exposure to heavy central banking audit financial penalties.
 *   **High Wealth Management Entry Barriers:** High-yield international investment opportunities were restricted to ultra-high-net-worth corporate lines due to expensive manual branch onboarding steps.
 
-### ✅ The Engineered Solution
+###  The Engineered Solution
 Designed a unified web and mobile FX processing interface that enforces hard central bank boundaries programmatically:
 1.  **Real-Time Price Sync Middleware:** Connects directly via secure low-latency REST hooks to international market rate feeds, embedding an automatic 50-pip spread buffer margin to protect the bank's processing capital.
 2.  **Programmatic FX Allowance Checker:** A processing tracking mechanism that aggregates a client's rolling historical purchases against legal regulatory limits before opening execution pathways.
